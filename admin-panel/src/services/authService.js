@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL ='https://dmc-94pi.onrender.com/api';
+const API_URL ='https://dmc-7wwk.onrender.com/';
 
 // Function to handle user login
 export const login = async (email, password) => {
