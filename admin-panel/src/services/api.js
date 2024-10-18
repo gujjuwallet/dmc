@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://dmc-94pi.onrender.com/api';
 
 // Get all hotels
 export const getHotels = async () => {
