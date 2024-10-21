@@ -26,21 +26,30 @@ const getHotelById = async (req, res) => {
 // Add a new hotel
 const addHotel = async (req, res) => {
   try {
-    const { name, location, contact, amenities, rooms, contractRates, availability } = req.body;
+
+    const { name, location, contact,description,facilities, amenities, rooms, contractRates, specialContractRates, rating, cancellationPolicy, checkInTime, checkOutTime, availability } = req.body;
 
     const newHotel = new Hotel({
       name,
       location,
       contact,
+      description,
+      facilities,
       amenities,
       rooms,
       contractRates,
-      availability
+      specialContractRates,
+      rating,
+      cancellationPolicy,
+      checkInTime,
+      checkOutTime,
+      availability,
     });
 
     await newHotel.save();
     res.status(201).json(newHotel);
   } catch (error) {
+    console.error(error)
     res.status(500).json({ message: 'Server Error' });
   }
 };
@@ -48,7 +57,7 @@ const addHotel = async (req, res) => {
 // Update an existing hotel
 const updateHotel = async (req, res) => {
   try {
-    const { name, location, contact, amenities, rooms, contractRates, availability } = req.body;
+    const { name, location, contact,description,facilities, amenities, rooms, contractRates, specialContractRates, rating, cancellationPolicy, checkInTime, checkOutTime, availability } = req.body;
 
     const hotel = await Hotel.findById(req.params.id);
     if (!hotel) {
@@ -58,9 +67,16 @@ const updateHotel = async (req, res) => {
     hotel.name = name || hotel.name;
     hotel.location = location || hotel.location;
     hotel.contact = contact || hotel.contact;
+    hotel.description = description || hotel.description;
+    hotel.facilities = facilities || hotel.facilities;
     hotel.amenities = amenities || hotel.amenities;
     hotel.rooms = rooms || hotel.rooms;
     hotel.contractRates = contractRates || hotel.contractRates;
+    hotel.specialContractRates = specialContractRates || hotel.specialContractRates;
+    hotel.rating = rating !== undefined ? rating : hotel.rating;
+    hotel.cancellationPolicy = cancellationPolicy || hotel.cancellationPolicy;
+    hotel.checkInTime = checkInTime || hotel.checkInTime;
+    hotel.checkOutTime = checkOutTime || hotel.checkOutTime;
     hotel.availability = availability !== undefined ? availability : hotel.availability;
 
     const updatedHotel = await hotel.save();
